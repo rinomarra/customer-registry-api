@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Registry — Lista clienti</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">Customer<span>Registry</span></div>
+  <nav>
+    <a href="./dashboard.html">Dashboard</a>
+    <a href="./clienti.html" aria-current="page">Clienti</a>
+    <a href="./referenti.html">Referenti</a>
+    <a href="./profilo.html">Profilo API</a>
+    <a href="./errori.html">Errori</a>
+  </nav>
+  <div class="role">Ruolo attivo<br><b>amministratore</b></div>
+</aside>
+
+<div class="content">
+  <main>
+    <h1>Lista clienti</h1>
+    <p class="lede">Ricerca, filtri e paginazione sull'archivio anagrafiche.</p>
+    <span class="endpoint">GET /api/v1/clienti</span>
+
+    <div class="card">
+      <form class="filtri" id="form-filtri" novalidate>
+        <div class="field">
+          <label for="q">Cerca</label>
+          <input id="q" name="q" type="text" placeholder="Ragione sociale, email o partita IVA">
+        </div>
+        <div class="field">
+          <label for="stato">Stato</label>
+          <select id="stato" name="stato">
+            <option value="">Tutti</option>
+            <option value="attivo">Attivo</option>
+            <option value="sospeso">Sospeso</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="per_pagina">Elementi per pagina</label>
+          <select id="per_pagina" name="per_pagina">
+            <option>20</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+        </div>
+        <button type="submit" class="primary" id="btn-filtri">Applica filtri</button>
+        <button type="reset" class="ghost" id="btn-reset">Reset</button>
+      </form>
+
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Ragione sociale</th>
+              <th>P.IVA</th>
+              <th>Email</th>
+              <th>Stato</th>
+              <th>Aggiornato</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody id="righe">
+            <tr>
+              <td>Acme Italia S.p.A.</td>
+              <td>12345678901</td>
+              <td>contabilita@acme.test</td>
+              <td><span class="badge attivo">attivo</span></td>
+              <td>26/07/2026</td>
+              <td>admin@example.local</td>
+            </tr>
+            <tr>
+              <td>Beta Servizi S.r.l.</td>
+              <td>98765432109</td>
+              <td>amministrazione@beta.test</td>
+              <td><span class="badge attivo">attivo</span></td>
+              <td>25/07/2026</td>
+              <td>admin@example.local</td>
+            </tr>
+            <tr>
+              <td>Gamma Logistica S.r.l.</td>
+              <td>45678901234</td>
+              <td>info@gamma.test</td>
+              <td><span class="badge sospeso">sospeso</span></td>
+              <td>24/07/2026</td>
+              <td>operator@example.local</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pager">
+        <span id="conteggio">Pagina 1 di 1 — 3 risultati</span>
+        <span class="spacer"></span>
+        <button type="button" class="ghost" id="btn-prec" disabled>Precedente</button>
+        <button type="button" class="ghost" id="btn-succ" disabled>Successiva</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('form-filtri');
+  var righe = document.getElementById('righe');
+  var conteggio = document.getElementById('conteggio');
+  var tutte = Array.prototype.slice.call(righe.querySelectorAll('tr'));
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var q = document.getElementById('q').value.trim().toLowerCase();
+    var stato = document.getElementById('stato').value;
+    var visibili = 0;
+
+    tutte.forEach(function (tr) {
+      var testo = tr.textContent.toLowerCase();
+      var statoRiga = tr.querySelector('.badge').textContent.trim();
+      var ok = (q === '' || testo.indexOf(q) !== -1) && (stato === '' || statoRiga === stato);
+      tr.style.display = ok ? '' : 'none';
+      if (ok) visibili++;
+    });
+
+    conteggio.textContent = visibili === 0
+      ? 'Nessun cliente corrisponde ai criteri indicati'
+      : 'Pagina 1 di 1 — ' + visibili + (visibili === 1 ? ' risultato' : ' risultati');
+  });
+
+  form.addEventListener('reset', function () {
+    setTimeout(function () {
+      tutte.forEach(function (tr) { tr.style.display = ''; });
+      conteggio.textContent = 'Pagina 1 di 1 — ' + tutte.length + ' risultati';
+    }, 0);
+  });
+})();
+</script>
+
+</body>
+</html>

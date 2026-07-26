@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Registry — Profilo API</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">Customer<span>Registry</span></div>
+  <nav>
+    <a href="./dashboard.html">Dashboard</a>
+    <a href="./">Clienti</a>
+    <a href="./referenti.html">Referenti</a>
+    <a href="./profilo.html" aria-current="page">Profilo API</a>
+    <a href="./errori.html">Errori</a>
+  </nav>
+  <div class="role">Ruolo attivo<br><b>amministratore</b></div>
+</aside>
+
+<div class="content">
+  <main>
+    <h1>Profilo API</h1>
+    <p class="lede">Sessione corrente e permessi associati al ruolo.</p>
+    <span class="endpoint">POST /api/v1/auth/login · POST /api/v1/auth/logout</span>
+
+    <div class="card">
+      <h2>Sessione</h2>
+      <p>Utente <b>admin@example.local</b>, ruolo <b>amministratore</b>.</p>
+      <p class="hint">L'autenticazione usa un token opaco inviato in <code>Authorization: Bearer &lt;token&gt;</code>. Nel database è conservato solo l'hash SHA-256: il valore in chiaro è restituito una sola volta al momento del login.</p>
+    </div>
+
+    <div class="card">
+      <h2>Matrice permessi</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Operazione</th><th>Amministratore</th><th>Operatore</th></tr></thead>
+          <tbody>
+            <tr><td>Lettura clienti e referenti</td><td>Consentita</td><td>Consentita</td></tr>
+            <tr><td>Creazione cliente</td><td>Consentita</td><td>Consentita</td></tr>
+            <tr><td>Modifica cliente</td><td>Consentita</td><td>Negata — 403</td></tr>
+            <tr><td>Cancellazione cliente</td><td>Consentita</td><td>Negata — 403</td></tr>
+            <tr><td>Modifica e cancellazione referenti</td><td>Consentita</td><td>Negata — 403</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

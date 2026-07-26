@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Registry — Dashboard</title>
+<link rel="stylesheet" href="app.css">
+<style>
+  .tiles { display: grid; gap: 1rem; margin-bottom: 1rem; }
+  @media (min-width: 44rem) { .tiles { grid-template-columns: repeat(4, 1fr); } }
+  .tile {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 0.5rem; padding: 1.25rem;
+  }
+  .tile dt {
+    font-size: 0.75rem; color: var(--ink-3); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.375rem;
+  }
+  .tile dd { margin: 0; font-size: 1.75rem; font-weight: 700; letter-spacing: -0.02em; }
+  .tile .sub { font-size: 0.8125rem; color: var(--ink-3); font-weight: 400; }
+</style>
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">Customer<span>Registry</span></div>
+  <nav>
+    <a href="./dashboard.html" aria-current="page">Dashboard</a>
+    <a href="./">Clienti</a>
+    <a href="./referenti.html">Referenti</a>
+    <a href="./profilo.html">Profilo API</a>
+    <a href="./errori.html">Errori</a>
+  </nav>
+  <div class="role">Ruolo attivo<br><b>amministratore</b></div>
+</aside>
+
+<div class="content">
+  <main>
+    <h1>Dashboard</h1>
+    <p class="lede">Sintesi dell'archivio anagrafiche e stato del servizio.</p>
+    <span class="endpoint">GET /healthz · GET /api/v1/clienti</span>
+
+    <dl class="tiles">
+      <div class="tile">
+        <dt>Clienti totali</dt>
+        <dd>3</dd>
+        <p class="sub">20 per pagina, 1 pagina</p>
+      </div>
+      <div class="tile">
+        <dt>Attivi</dt>
+        <dd>2</dd>
+        <p class="sub">67% archivio</p>
+      </div>
+      <div class="tile">
+        <dt>Sospesi</dt>
+        <dd>1</dd>
+        <p class="sub">classificazione amministrativa</p>
+      </div>
+      <div class="tile">
+        <dt>Referenti</dt>
+        <dd>0</dd>
+        <p class="sub">nessun referente registrato</p>
+      </div>
+    </dl>
+
+    <div class="card">
+      <h2>Ultimi clienti aggiornati</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Ragione sociale</th><th>P.IVA</th><th>Stato</th><th>Aggiornato</th></tr></thead>
+          <tbody>
+            <tr><td>Acme Italia S.p.A.</td><td>12345678901</td><td><span class="badge attivo">attivo</span></td><td>26/07/2026</td></tr>
+            <tr><td>Beta Servizi S.r.l.</td><td>98765432109</td><td><span class="badge attivo">attivo</span></td><td>25/07/2026</td></tr>
+            <tr><td>Gamma Logistica S.r.l.</td><td>45678901234</td><td><span class="badge sospeso">sospeso</span></td><td>24/07/2026</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

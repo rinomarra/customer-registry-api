@@ -4,65 +4,118 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Customer Registry — Referenti</title>
-<style>
-  :root {
-    --ground: #f7f7fb; --surface: #ffffff; --ink: #16151d; --ink-2: #55525f;
-    --ink-3: #85818f; --line: #e2e0e9; --accent: #3d4fd4;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--ground); color: var(--ink);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    font-size: 15px; line-height: 1.55;
-  }
-  header { background: var(--surface); border-bottom: 1px solid var(--line); padding: 0 1.5rem; }
-  .bar { max-width: 60rem; margin: 0 auto; display: flex; align-items: center; gap: 1rem; height: 3.5rem; }
-  .logo { font-weight: 700; letter-spacing: -0.02em; font-size: 1.0625rem; }
-  .logo span { color: var(--accent); }
-  nav { margin-left: auto; display: flex; gap: 1.25rem; }
-  nav a { color: var(--ink-2); text-decoration: none; font-size: 0.875rem; font-weight: 500; }
-  nav a[aria-current="page"] { color: var(--accent); font-weight: 600; }
-  main { max-width: 60rem; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-  h1 { font-size: 1.5rem; letter-spacing: -0.02em; margin: 0 0 0.25rem; }
-  .lede { color: var(--ink-2); margin: 0 0 2rem; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 0.5rem; padding: 1.75rem; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 0.75rem 0.5rem; border-bottom: 1px solid var(--line); }
-  th { font-size: 0.8125rem; color: var(--ink-3); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
-  td { font-size: 0.9375rem; }
-  tbody tr:last-child td { border-bottom: 0; }
-  .empty { color: var(--ink-3); text-align: center; padding: 2rem 0; }
-</style>
+<link rel="stylesheet" href="app.css">
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <div class="logo">Customer<span>Registry</span></div>
-    <nav>
-      <a href="./">Clienti</a>
-      <a href="./referenti.html" aria-current="page">Referenti</a>
-      <a href="./ricerca.html">Ricerca</a>
-      <a href="./documentazione.html">Documentazione</a>
-    </nav>
-  </div>
-</header>
+<aside class="rail">
+  <div class="brand">Customer<span>Registry</span></div>
+  <nav>
+    <a href="./dashboard.html">Dashboard</a>
+    <a href="./">Clienti</a>
+    <a href="./referenti.html" aria-current="page">Referenti</a>
+    <a href="./profilo.html">Profilo API</a>
+    <a href="./errori.html">Errori</a>
+  </nav>
+  <div class="role">Ruolo attivo<br><b>amministratore</b></div>
+</aside>
 
-<main>
-  <h1>Referenti</h1>
-  <p class="lede">Persone associate ai clienti in anagrafica. Ogni referente appartiene a un solo cliente.</p>
+<div class="content">
+  <main>
+    <h1>Gestione referenti</h1>
+    <p class="lede">Persone associate a un cliente. Ogni referente appartiene a un solo cliente.</p>
+    <span class="endpoint">GET · POST /api/v1/clienti/{id}/referenti</span>
 
-  <div class="card">
-    <table>
-      <thead>
-        <tr><th>Nome</th><th>Cognome</th><th>Email</th><th>Ruolo</th><th>Cliente</th></tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="5" class="empty">Nessun referente registrato.</td></tr>
-      </tbody>
-    </table>
-  </div>
-</main>
+    <div class="card">
+      <h2>Referenti collegati</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Nome</th><th>Cognome</th><th>Email</th><th>Ruolo</th></tr></thead>
+          <tbody>
+            <tr><td colspan="4" class="empty">Nessun referente registrato.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <form class="card" id="form-referente" novalidate>
+      <h2>Nuovo referente</h2>
+      <div class="grid two">
+        <div class="field" id="f-nome">
+          <label for="nome">Nome<span class="req">*</span></label>
+          <input id="nome" name="nome" type="text" maxlength="100" autocomplete="off">
+          <p class="err" id="e-nome">Il nome è obbligatorio.</p>
+        </div>
+        <div class="field" id="f-cognome">
+          <label for="cognome">Cognome<span class="req">*</span></label>
+          <input id="cognome" name="cognome" type="text" maxlength="100" autocomplete="off">
+          <p class="err" id="e-cognome">Il cognome è obbligatorio.</p>
+        </div>
+        <div class="field" id="f-email">
+          <label for="email">Email<span class="req">*</span></label>
+          <input id="email" name="email" type="email" maxlength="254" autocomplete="off">
+          <p class="err" id="e-email">Inserire un indirizzo email valido.</p>
+        </div>
+        <div class="field" id="f-ruolo">
+          <label for="ruolo">Ruolo<span class="opt">facoltativo</span></label>
+          <input id="ruolo" name="ruolo" type="text" maxlength="100" autocomplete="off">
+        </div>
+      </div>
+      <p class="hint" style="margin-top:1rem">Nome, cognome ed email sono obbligatori. Il ruolo ammette al massimo 100 caratteri.</p>
+      <div class="actions">
+        <button type="submit" class="primary">Aggiungi referente</button>
+      </div>
+      <div class="esito" id="esito" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+</div>
+
+<script>
+(function () {
+  var form = document.getElementById('form-referente');
+  var esito = document.getElementById('esito');
+
+  function setInvalid(id, invalid) {
+    document.getElementById(id).classList.toggle('invalid', invalid);
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    esito.className = 'esito';
+
+    var nome = form.nome.value.trim();
+    var cognome = form.cognome.value.trim();
+    var email = form.email.value.trim();
+    var ok = true;
+
+    setInvalid('f-nome', nome === '');
+    if (nome === '') ok = false;
+    setInvalid('f-cognome', cognome === '');
+    if (cognome === '') ok = false;
+    var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    setInvalid('f-email', !emailOk);
+    if (!emailOk) ok = false;
+
+    if (!ok) {
+      esito.className = 'esito ko';
+      esito.innerHTML = '<strong>Controllare i dati inseriti</strong>Alcuni campi obbligatori non sono validi.';
+      return;
+    }
+
+    fetch('api/v1/clienti/1/referenti', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nome: nome, cognome: cognome, email: email, ruolo: form.ruolo.value })
+    })
+      .then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } })
+      .catch(function () {
+        esito.className = 'esito ko';
+        esito.innerHTML = '<strong>Inserimento non riuscito</strong>' +
+          'Il servizio non è al momento disponibile. Riprovare più tardi.';
+      });
+  });
+})();
+</script>
 
 </body>
 </html>

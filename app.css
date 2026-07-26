@@ -1,0 +1,221 @@
+:root {
+  --ground: #f6f7fb;
+  --surface: #ffffff;
+  --rail: #1b1f36;
+  --rail-ink: #b9bdd4;
+  --rail-ink-active: #ffffff;
+  --ink: #16151d;
+  --ink-2: #55525f;
+  --ink-3: #85818f;
+  --line: #e2e0e9;
+  --accent: #3d4fd4;
+  --accent-dark: #33429f;
+  --accent-wash: #eef0fd;
+  --danger: #c0271f;
+  --danger-wash: #fdf1f0;
+  --ok: #0b7a52;
+  --ok-wash: #eafaf3;
+  --warn: #9a6207;
+  --warn-wash: #fdf6e7;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── Navigazione laterale (MSK: rail fisso a cinque voci) ─────────── */
+.rail {
+  width: 15rem;
+  flex-shrink: 0;
+  background: var(--rail);
+  color: var(--rail-ink);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+}
+.rail .brand {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
+  color: #fff;
+  padding: 0 1.5rem 1.5rem;
+}
+.rail .brand span { color: #8b9bff; }
+.rail nav { display: flex; flex-direction: column; }
+.rail nav a {
+  color: var(--rail-ink);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  padding: 0.6875rem 1.5rem;
+  border-left: 3px solid transparent;
+}
+.rail nav a:hover { color: #fff; background: rgba(255,255,255,0.04); }
+.rail nav a[aria-current="page"] {
+  color: var(--rail-ink-active);
+  border-left-color: #8b9bff;
+  background: rgba(139,155,255,0.10);
+  font-weight: 600;
+}
+.rail .role {
+  margin-top: auto;
+  padding: 1.5rem 1.5rem 0;
+  font-size: 0.8125rem;
+  color: var(--rail-ink);
+}
+.rail .role b {
+  display: inline-block;
+  background: rgba(139,155,255,0.16);
+  color: #cfd5ff;
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* ── Area principale ──────────────────────────────────────────────── */
+.content { flex: 1; min-width: 0; }
+main { max-width: 62rem; padding: 2rem 2rem 4rem; }
+h1 { font-size: 1.5rem; letter-spacing: -0.02em; margin: 0 0 0.25rem; }
+.lede { color: var(--ink-2); margin: 0 0 1.75rem; }
+.endpoint {
+  display: inline-block;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8125rem;
+  background: var(--accent-wash);
+  color: var(--accent-dark);
+  padding: 0.1875rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  padding: 1.75rem;
+}
+.card + .card { margin-top: 1rem; }
+.card h2 { font-size: 1.0625rem; margin: 0 0 1rem; letter-spacing: -0.01em; }
+
+/* ── Form ─────────────────────────────────────────────────────────── */
+.grid { display: grid; gap: 1.125rem; }
+@media (min-width: 44rem) { .grid.two { grid-template-columns: 1fr 1fr; } }
+.field { display: flex; flex-direction: column; gap: 0.375rem; }
+label { font-weight: 600; font-size: 0.875rem; }
+.req { color: var(--danger); margin-left: 0.125rem; }
+.opt { color: var(--ink-3); font-weight: 400; font-size: 0.8125rem; margin-left: 0.25rem; }
+input, select, textarea {
+  font: inherit;
+  padding: 0.5rem 0.6875rem;
+  border: 1px solid var(--line);
+  border-radius: 0.375rem;
+  background: #fff;
+  color: var(--ink);
+  width: 100%;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: var(--accent);
+}
+textarea { resize: vertical; min-height: 4.5rem; }
+.hint { font-size: 0.8125rem; color: var(--ink-3); margin: 0; }
+.err { font-size: 0.8125rem; color: var(--danger); font-weight: 500; display: none; margin: 0; }
+.field.invalid input, .field.invalid select { border-color: var(--danger); }
+.field.invalid .err { display: block; }
+
+.actions {
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+button {
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5625rem 1.25rem;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+}
+.primary { background: var(--accent); color: #fff; }
+.primary:hover { background: var(--accent-dark); }
+.ghost { background: #fff; border-color: var(--line); color: var(--ink-2); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ── Esito ────────────────────────────────────────────────────────── */
+.esito {
+  margin-top: 1.5rem;
+  padding: 1rem 1.125rem;
+  border-radius: 0.375rem;
+  display: none;
+  font-size: 0.9375rem;
+}
+.esito.ok { display: block; background: var(--ok-wash); border: 1px solid var(--ok); color: var(--ok); }
+.esito.ko { display: block; background: var(--danger-wash); border: 1px solid var(--danger); color: var(--danger); }
+.esito strong { display: block; margin-bottom: 0.25rem; }
+
+/* ── Regole validate (colonna laterale MSK-06) ────────────────────── */
+.rules { font-size: 0.875rem; color: var(--ink-2); }
+.rules li { margin-bottom: 0.5rem; }
+.rules code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.8125em;
+  background: #f1f0f5;
+  padding: 0.0625rem 0.3125rem;
+  border-radius: 0.25rem;
+}
+
+/* ── Tabelle ──────────────────────────────────────────────────────── */
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 40rem; }
+th, td { text-align: left; padding: 0.6875rem 0.625rem; border-bottom: 1px solid var(--line); }
+th {
+  font-size: 0.75rem;
+  color: var(--ink-3);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+td { font-size: 0.9375rem; }
+tbody tr:last-child td { border-bottom: 0; }
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+}
+.badge.attivo { background: var(--ok-wash); color: var(--ok); }
+.badge.sospeso { background: var(--warn-wash); color: var(--warn); }
+
+/* ── Filtri ───────────────────────────────────────────────────────── */
+.filtri { display: grid; gap: 1rem; margin-bottom: 1.5rem; }
+@media (min-width: 48rem) {
+  .filtri { grid-template-columns: 2fr 1fr 1fr auto auto; align-items: end; }
+}
+
+.pager {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+.pager .spacer { margin-left: auto; }
+.empty { color: var(--ink-3); text-align: center; padding: 2rem 0; }

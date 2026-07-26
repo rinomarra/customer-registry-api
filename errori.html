@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Registry — Stati errore</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">Customer<span>Registry</span></div>
+  <nav>
+    <a href="./dashboard.html">Dashboard</a>
+    <a href="./">Clienti</a>
+    <a href="./referenti.html">Referenti</a>
+    <a href="./profilo.html">Profilo API</a>
+    <a href="./errori.html" aria-current="page">Errori</a>
+  </nav>
+  <div class="role">Ruolo attivo<br><b>amministratore</b></div>
+</aside>
+
+<div class="content">
+  <main>
+    <h1>Stati errore</h1>
+    <p class="lede">Catalogo degli errori restituiti dal servizio e loro rappresentazione nell'interfaccia.</p>
+
+    <div class="card">
+      <h2>Errori mappati</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>HTTP</th><th>Codice</th><th>Messaggio mostrato</th></tr></thead>
+          <tbody>
+            <tr><td>400</td><td><code>validation_failed</code></td><td>Controllare i dati inseriti</td></tr>
+            <tr><td>401</td><td><code>invalid_credentials</code></td><td>Email o password non corretti</td></tr>
+            <tr><td>403</td><td><code>forbidden</code></td><td>Il ruolo corrente non può eseguire questa operazione</td></tr>
+            <tr><td>404</td><td><code>client_not_found</code></td><td>Cliente non trovato</td></tr>
+            <tr><td>409</td><td><code>vat_number_conflict</code></td><td>Esiste già un cliente con questa partita IVA</td></tr>
+            <tr><td>500</td><td><code>internal_error</code></td><td>Si è verificato un errore interno</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Nessun risultato</h2>
+      <p>Quando una ricerca non produce risultati, l'elenco mostra lo stato vuoto con il criterio applicato e un collegamento alla creazione di un nuovo cliente.</p>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

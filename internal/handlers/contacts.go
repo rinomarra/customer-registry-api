@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/open-services-lab/customer-registry-api/internal/models"
-	"github.com/open-services-lab/customer-registry-api/internal/storage"
+	"github.com/rinomarra/customer-registry-api/internal/models"
+	"github.com/rinomarra/customer-registry-api/internal/storage"
 )
 
 type ContactHandler struct {

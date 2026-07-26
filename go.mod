@@ -1,4 +1,4 @@
-module github.com/open-services-lab/customer-registry-api
+module github.com/rinomarra/customer-registry-api
 
 go 1.23.0
 

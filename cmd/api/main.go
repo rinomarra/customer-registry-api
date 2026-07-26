@@ -12,10 +12,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	chimiddleware "github.com/go-chi/chi/v5/middleware"
-	"github.com/open-services-lab/customer-registry-api/internal/handlers"
-	appmiddleware "github.com/open-services-lab/customer-registry-api/internal/middleware"
-	"github.com/open-services-lab/customer-registry-api/internal/models"
-	"github.com/open-services-lab/customer-registry-api/internal/storage"
+	"github.com/rinomarra/customer-registry-api/internal/handlers"
+	appmiddleware "github.com/rinomarra/customer-registry-api/internal/middleware"
+	"github.com/rinomarra/customer-registry-api/internal/models"
+	"github.com/rinomarra/customer-registry-api/internal/storage"
 )
 
 func main() {

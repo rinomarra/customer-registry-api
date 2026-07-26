@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/open-services-lab/customer-registry-api/internal/models"
+	"github.com/rinomarra/customer-registry-api/internal/models"
 )
 
 func (s *Store) ListContacts(ctx context.Context, clientID int64, filter ContactFilter) ([]models.Contact, int, error) {
